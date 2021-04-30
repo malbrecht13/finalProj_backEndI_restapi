@@ -24,10 +24,10 @@ if(!empty($quote->id)) {
     //delete quote
     $quote->delete();
     echo json_encode(
-        array('message' => 'Post deleted')
+        array('message' => 'Quote deleted')
     );
 } else {
     echo json_encode(
-        array('message' => 'Post was not deleted')
+        array('message' => 'Quote was not deleted')
     );
 }
