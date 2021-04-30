@@ -97,4 +97,26 @@ class Author {
         return false;
     }
 
+    public function get_authors_for_view() {
+        $result = $this->read();
+        $num = $result->rowCount();
+        //authors array
+        $auth_arr = array();
+        //Check if any authors
+        if($num > 0) {
+            while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                extract($row);
+
+                $auth_item = array(
+                    'id' => $id,
+                    'author' => $author
+                );
+
+                //Push item to categories array
+                array_push($auth_arr, $auth_item);
+            }
+        } 
+        return $auth_arr;
+    }
+
 }

@@ -98,4 +98,26 @@ class Category {
 
         return false;
     }
+
+    public function get_categories_for_view() {
+        $result = $this->read();
+        $num = $result->rowCount();
+        //authors array
+        $cat_arr = array();
+        //Check if any authors
+        if($num > 0) {
+            while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                extract($row);
+
+                $cat_item = array(
+                    'id' => $id,
+                    'category' => $category
+                );
+
+                //Push item to categories array
+                array_push($cat_arr, $cat_item);
+            }
+        } 
+        return $cat_arr;
+    }
 }

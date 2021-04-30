@@ -224,4 +224,43 @@ class Quote {
             return $statement;
         }
     }
+
+    public function get_quotes_for_view($authorId, $categoryId) {
+        $num = 0;
+        //if authorId and/or categoryId are provided in url query
+        //get quotes by query
+        $limit = null;
+        if($authorId || $categoryId) {
+            $result = $this->get_quotes_by_query($authorId, $categoryId, $limit);
+            $num = $result->rowCount();
+        } else {
+            //otherwise get all quotes
+            $result = $this->read();
+            //Get row count
+            $num = $result->rowCount();
+        }
+        
+         //quotes array
+         $quotes_arr = array();
+         
+        //Check if any quotes
+        if($num > 0) {
+
+            while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                extract($row);
+
+                $quote_item = array(
+                    'id' => $id,
+                    'quote' => $quote,
+                    'author' => $author,
+                    'category' => $category
+                );
+
+                //Push item to quotes array
+                array_push($quotes_arr, $quote_item);
+            }
+        } 
+        return $quotes_arr;
+
+    }
 }
