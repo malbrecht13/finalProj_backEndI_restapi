@@ -9,7 +9,7 @@ class Author {
     public $id;
     public $author;
 
-    //construction
+    //constructor
     public function __construct($db) {
         $this->conn = $db;
     }
@@ -112,7 +112,7 @@ class Author {
                     'author' => $author
                 );
 
-                //Push item to categories array
+                //Push item to authors array
                 array_push($auth_arr, $auth_item);
             }
         } 
